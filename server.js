@@ -12,7 +12,7 @@ const headerTertiaryRoute = require("./routes/5. HeaderTertiaryMenu")
 const app = express()
 
 app.use(cors({
-  origin: ["http://localhost:5173", "http://localhost:5174", "http://localhost:5175", "http://localhost:5176", "https://student.dlms.pro", "http://student.dlms.pro", "https://system.dlms.pro", "http://system.dlms.pro", "https://teacher.dlms.pro", "http://teacher.dlms.pro", "https://autoschools.dlms.pro", "https://spanel.dlms.pro", "http://localhost:5000"],
+  origin: ["http://localhost:5173", "http://localhost:5174", "http://localhost:5175", "http://localhost:5176", "https://student.dlms.pro", "http://student.dlms.pro", "https://system.dlms.pro", "http://system.dlms.pro", "https://teacher.dlms.pro", "http://teacher.dlms.pro", "https://autoschools.dlms.pro", "https://spanel.dlms.pro", "http://localhost:5000", "http://localhost:3000", "http://localhost:3001"],
   credentials: true
 }));
 
