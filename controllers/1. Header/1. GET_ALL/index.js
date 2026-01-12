@@ -23,7 +23,18 @@ const GET_ALL_HEADER = async (req, res) => {
             value: search
         } : null;
 
-        const include = {};
+        const include = {
+                        header_menus_header_menus_headerToheader:{
+                            include:{
+                                header_submenus:{
+                                    include:{
+                                        header_tertiary_submenu:true
+                                    }
+                                }
+                            }
+                        },
+                        header_style_header_style_headerToheader:true,
+            };
 
         return await storeData(res, 'header', {
             where,
