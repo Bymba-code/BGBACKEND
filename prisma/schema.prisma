@@ -1,0 +1,78 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model header {
+  id                                       Int            @id @default(autoincrement())
+  logo                                     String?        @db.VarChar(255)
+  header_menus_header_menus_headerToheader header_menus[] @relation("header_menus_headerToheader")
+  header_style_header_style_headerToheader header_style[] @relation("header_style_headerToheader")
+}
+
+model header_menus {
+  id                                 Int               @id @default(autoincrement())
+  header                             Int?
+  nameMN                             String?           @db.VarChar(55)
+  nameEN                             String?           @db.VarChar(55)
+  route                              String?           @db.VarChar(155)
+  index                              Int?
+  font                               String?           @db.VarChar(155)
+  fontColor                          String?           @db.VarChar(15)
+  isVisible                          Int?
+  date                               DateTime?         @db.Timestamp(0)
+  header_header_menus_headerToheader header?           @relation("header_menus_headerToheader", fields: [header], references: [id], onDelete: Cascade, map: "header_menus_to_header")
+  header_submenus                    header_submenus[]
+
+  @@index([header], map: "header_menus_to_header_idx")
+}
+
+model header_style {
+  id                                 Int     @id @default(autoincrement())
+  header                             Int?
+  backgroundColor                    String? @db.VarChar(15)
+  fontColor                          String? @db.VarChar(15)
+  hoverColor                         String? @db.VarChar(15)
+  height                             String? @db.VarChar(15)
+  sticky                             Int?
+  header_header_style_headerToheader header? @relation("header_style_headerToheader", fields: [header], references: [id], onDelete: Cascade, map: "header_style_to_header")
+
+  @@index([header], map: "header_style_to_header_idx")
+}
+
+model header_submenus {
+  id                      Int                       @id @default(autoincrement())
+  header_menu             Int?
+  nameMN                  String?                   @db.VarChar(55)
+  nameEN                  String?                   @db.VarChar(55)
+  route                   String?                   @db.VarChar(155)
+  index                   Int?
+  font                    String?                   @db.VarChar(55)
+  fontColor               String?                   @db.VarChar(15)
+  isVisible               Int?
+  date                    DateTime?                 @db.Timestamp(0)
+  header_menus            header_menus?             @relation(fields: [header_menu], references: [id], onDelete: Cascade, map: "header_submenus_header_menus")
+  header_tertiary_submenu header_tertiary_submenu[]
+
+  @@index([header_menu], map: "header_submenus_header_menus_idx")
+}
+
+model header_tertiary_submenu {
+  id              Int              @id @default(autoincrement())
+  header_submenu  Int?
+  nameMN          String?          @db.VarChar(55)
+  nameEN          String?          @db.VarChar(55)
+  route           String?          @db.VarChar(155)
+  index           Int?
+  font            String?          @db.VarChar(25)
+  fontColor       String?          @db.VarChar(15)
+  isVisible       Int?
+  date            DateTime?        @db.Timestamp(0)
+  header_submenus header_submenus? @relation(fields: [header_submenu], references: [id], onDelete: Cascade, map: "header_tertiary_submenu_to_submenu")
+
+  @@index([header_submenu], map: "header_tertiary_submenu_to_submenu_idx")
+}
